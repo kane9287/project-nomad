@@ -119,3 +119,139 @@ body {
 
   color-scheme: dark;
 }
+
+/* ============================================================
+   TEAL palette — clean teal/cyan (Tailwind teal scale)
+   ============================================================ */
+[data-palette="teal"] {
+  --color-desert-sand: #f0fdfa;
+  --color-desert-green-darker: #042f2e;
+  --color-desert-green-dark: #134040;
+  --color-desert-green: #0d9488;
+  --color-desert-green-light: #5eead4;
+  --color-desert-green-lighter: #ccfbf1;
+  --color-border-default: #0d9488;
+  --color-border-subtle: #99f6e4;
+  --color-btn-green-hover: #0f766e;
+  --color-btn-green-active: #115e59;
+}
+
+[data-palette="teal"][data-theme="dark"] {
+  --color-desert-sand: #0d1f1f;
+  --color-desert-white: #132828;
+  --color-desert-green-darker: #ccfbf1;
+  --color-desert-green-dark: #99f6e4;
+  --color-desert-green: #2dd4bf;
+  --color-desert-green-light: #0f766e;
+  --color-desert-green-lighter: #0d9488;
+  --color-surface-primary: #132828;
+  --color-surface-secondary: #173030;
+  --color-surface-elevated: #1c3838;
+  --color-border-default: #2dd4bf;
+  --color-border-subtle: #0f766e;
+  --color-btn-green-hover: #14b8a6;
+  --color-btn-green-active: #0d9488;
+  color-scheme: dark;
+}
+
+/* ============================================================
+   BOOTSTRAP palette — Bootstrap 5 classic blue
+   ============================================================ */
+[data-palette="bootstrap"] {
+  --color-desert-sand: #f8f9fa;
+  --color-desert-green-darker: #052c65;
+  --color-desert-green-dark: #084298;
+  --color-desert-green: #0d6efd;
+  --color-desert-green-light: #6ea8fe;
+  --color-desert-green-lighter: #cfe2ff;
+  --color-border-default: #0d6efd;
+  --color-border-subtle: #9ec5fe;
+  --color-btn-green-hover: #0b5ed7;
+  --color-btn-green-active: #0a58ca;
+}
+
+[data-palette="bootstrap"][data-theme="dark"] {
+  --color-desert-sand: #212529;
+  --color-desert-white: #2b3035;
+  --color-desert-green-darker: #cfe2ff;
+  --color-desert-green-dark: #9ec5fe;
+  --color-desert-green: #6ea8fe;
+  --color-desert-green-light: #0b5ed7;
+  --color-desert-green-lighter: #084298;
+  --color-surface-primary: #2b3035;
+  --color-surface-secondary: #343a40;
+  --color-surface-elevated: #3d444c;
+  --color-border-default: #6ea8fe;
+  --color-border-subtle: #0b5ed7;
+  --color-btn-green-hover: #8bb9fe;
+  --color-btn-green-active: #6ea8fe;
+  color-scheme: dark;
+}
+
+/* ============================================================
+   PICO palette — elegant indigo/violet (Pico.css inspired)
+   ============================================================ */
+[data-palette="pico"] {
+  --color-desert-sand: #fafafa;
+  --color-desert-green-darker: #1e1b4b;
+  --color-desert-green-dark: #3730a3;
+  --color-desert-green: #6366f1;
+  --color-desert-green-light: #a5b4fc;
+  --color-desert-green-lighter: #e0e7ff;
+  --color-border-default: #6366f1;
+  --color-border-subtle: #c7d2fe;
+  --color-btn-green-hover: #4f46e5;
+  --color-btn-green-active: #4338ca;
+}
+
+[data-palette="pico"][data-theme="dark"] {
+  --color-desert-sand: #1a1a2e;
+  --color-desert-white: #16213e;
+  --color-desert-green-darker: #e0e7ff;
+  --color-desert-green-dark: #c7d2fe;
+  --color-desert-green: #818cf8;
+  --color-desert-green-light: #4338ca;
+  --color-desert-green-lighter: #3730a3;
+  --color-surface-primary: #16213e;
+  --color-surface-secondary: #1a2050;
+  --color-surface-elevated: #1e2460;
+  --color-border-default: #818cf8;
+  --color-border-subtle: #4338ca;
+  --color-btn-green-hover: #6366f1;
+  --color-btn-green-active: #4f46e5;
+  color-scheme: dark;
+}
+
+/* ============================================================
+   BULMA palette — vibrant turquoise (Bulma CSS inspired)
+   ============================================================ */
+[data-palette="bulma"] {
+  --color-desert-sand: #ffffff;
+  --color-desert-green-darker: #005c53;
+  --color-desert-green-dark: #007a6e;
+  --color-desert-green: #00d1b2;
+  --color-desert-green-light: #4de8d0;
+  --color-desert-green-lighter: #b3f5ee;
+  --color-border-default: #00d1b2;
+  --color-border-subtle: #80e8d9;
+  --color-btn-green-hover: #00b09a;
+  --color-btn-green-active: #009e8a;
+}
+
+[data-palette="bulma"][data-theme="dark"] {
+  --color-desert-sand: #141a20;
+  --color-desert-white: #1a2530;
+  --color-desert-green-darker: #b3f5ee;
+  --color-desert-green-dark: #4de8d0;
+  --color-desert-green: #00d1b2;
+  --color-desert-green-light: #007a6e;
+  --color-desert-green-lighter: #005c53;
+  --color-surface-primary: #1a2530;
+  --color-surface-secondary: #1e2d3a;
+  --color-surface-elevated: #243545;
+  --color-border-default: #00d1b2;
+  --color-border-subtle: #007a6e;
+  --color-btn-green-hover: #00b09a;
+  --color-btn-green-active: #009e8a;
+  color-scheme: dark;
+}

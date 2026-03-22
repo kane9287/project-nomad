@@ -35,6 +35,10 @@ export default class SettingsController {
         });
     }
     
+    async appearance({ inertia }: HttpContext) {
+        return inertia.render('settings/appearance');
+    }
+
     async legal({ inertia }: HttpContext) {
         return inertia.render('settings/legal');
     }
