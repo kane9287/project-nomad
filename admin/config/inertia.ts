@@ -19,6 +19,11 @@ const inertiaConfig = defineConfig({
       const customName = await KVStore.getValue('ai.assistantCustomName')
       return (customName && customName.trim()) ? customName : 'AI Assistant'
     },
+    dozzleUrl: async () => {
+      const Service = (await import('#models/service')).default
+      const dozzle = await Service.findBy('service_name', 'nomad_dozzle')
+      return dozzle?.ui_location ?? '9999'
+    },
   },
 
   /**

@@ -159,6 +159,24 @@ export default class ServiceSeeder extends BaseSeeder {
       is_dependency_service: false,
       depends_on: null,
     },
+
+    {
+      service_name: SERVICE_NAMES.DOZZLE,
+      friendly_name: 'Service Logs & Metrics',
+      powered_by: 'Dozzle',
+      display_order: 98,
+      description: 'Real-time container log viewer and metrics for all running services',
+      icon: 'IconDashboard',
+      container_image: 'amir20/dozzle:v10.0',
+      source_repo: 'https://github.com/amir20/dozzle',
+      container_command: null,
+      container_config: null,
+      ui_location: '9999',
+      installed: true,
+      installation_status: 'idle',
+      is_dependency_service: false,
+      depends_on: null,
+    },
   ]
 
   async run() {
