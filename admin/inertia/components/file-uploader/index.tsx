@@ -10,7 +10,7 @@ import './index.css' // Custom styles for the uploader
 interface FileUploaderProps {
   minFiles?: number // minimum number of files required
   maxFiles?: number
-  maxFileSize?: number // in bytes, e.g., 10485760 for 10MB
+  maxFileSize?: number // in bytes, e.g., 262144000 for 250MB
   fileTypes?: string[] // e.g., ['image/*', 'application/pdf']
   disabled?: boolean
   onUpload: (files: FileList) => void
@@ -29,7 +29,7 @@ const FileUploader = forwardRef<FileUploaderRef, FileUploaderProps>((props, ref)
   const {
     minFiles = 0,
     maxFiles = 1,
-    maxFileSize = 10485760, // default to 10MB
+    maxFileSize = 262144000, // default to 250MB
     fileTypes,
     disabled = false,
     onUpload,
