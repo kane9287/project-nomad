@@ -110,30 +110,22 @@ export function useTheme() {
 
   const setPalette = useCallback((newPalette: Palette) => {
     setPaletteState(newPalette)
-    setCustomColorsState((currentColors) => {
-      const currentTheme = (document.documentElement.getAttribute('data-theme') as Theme) ?? 'light'
-      applyPalette(newPalette, currentColors, currentTheme)
-      return currentColors
-    })
+    applyPalette(newPalette, customColors, theme)
     try {
       localStorage.setItem(PALETTE_STORAGE_KEY, newPalette)
     } catch {}
     api.updateSetting('ui.palette', newPalette).catch(() => {})
-  }, [])
+  }, [customColors, theme])
 
   const setCustomColors = useCallback((newColors: CustomColors) => {
     setCustomColorsState(newColors)
-    setPaletteState((currentPalette) => {
-      if (currentPalette === 'custom') {
-        const currentTheme = (document.documentElement.getAttribute('data-theme') as Theme) ?? 'light'
-        applyCustomColors(newColors, currentTheme)
-      }
-      return currentPalette
-    })
+    if (palette === 'custom') {
+      applyCustomColors(newColors, theme)
+    }
     try {
       localStorage.setItem(CUSTOM_COLORS_STORAGE_KEY, JSON.stringify(newColors))
     } catch {}
-  }, [])
+  }, [palette, theme])
 
   // Apply both theme and palette on mount
   useEffect(() => {
