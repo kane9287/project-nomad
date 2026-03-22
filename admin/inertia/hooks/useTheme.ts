@@ -53,11 +53,15 @@ function getInitialCustomColors(): CustomColors {
 function applyCustomColors(colors: CustomColors, theme: Theme) {
   const root = document.documentElement
   const isDark = theme === 'dark'
+  const bg = isDark ? colors.bgDark : colors.bg
   root.style.setProperty('--color-desert-green', colors.accent)
   root.style.setProperty('--color-desert-green-dark', colors.accentHover)
   root.style.setProperty('--color-btn-green-hover', colors.accentHover)
   root.style.setProperty('--color-border-default', colors.border)
-  root.style.setProperty('--color-desert-sand', isDark ? colors.bgDark : colors.bg)
+  root.style.setProperty('--color-desert-sand', bg)
+  // Set directly on body so the background updates regardless of how
+  // Tailwind v4 compiles var() references at build time.
+  document.body.style.backgroundColor = bg
 }
 
 function clearCustomColors() {
@@ -67,6 +71,7 @@ function clearCustomColors() {
   root.style.removeProperty('--color-btn-green-hover')
   root.style.removeProperty('--color-border-default')
   root.style.removeProperty('--color-desert-sand')
+  document.body.style.removeProperty('background-color')
 }
 
 function applyPalette(palette: Palette, customColors?: CustomColors, theme: Theme = 'light') {
