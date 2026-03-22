@@ -431,7 +431,9 @@ export class MapService implements IMapService {
   }
 
   /*
-   * Gets the appropriate public URL for a map asset depending on environment
+   * Gets the public URL for a map asset served by MapsStaticMiddleware.
+   * The middleware serves from {cwd}/storage/maps, so URLs should use childPath
+   * directly (e.g. /pmtiles/file.pmtiles) in all environments.
    */
   private getPublicFileBaseUrl(specifiedHost: string | null, childPath: string, protocol: string = 'http'): string {
     function getHost() {
@@ -448,10 +450,7 @@ export class MapService implements IMapService {
 
     const host = specifiedHost || getHost()
     const withProtocol = host.startsWith('http') ? host : `${protocol}://${host}`
-    const baseUrlPath =
-      process.env.NODE_ENV === 'production' ? childPath : urlJoin(this.mapStoragePath, childPath)
-
-    const baseUrl = new URL(baseUrlPath, withProtocol).toString()
+    const baseUrl = new URL(childPath, withProtocol).toString()
     return baseUrl
   }
 }

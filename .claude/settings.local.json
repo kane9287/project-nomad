@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Get-Content '/c/Users/Christopher/Documents/Calude AI stuff/NOMAD_github/admin/app/controllers/maps_controller.ts' | Select-Object -Skip 10 -First 70\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\controllers\\\\maps_controller.ts'\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\settings\\\\appearance.tsx'\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\map_service.ts'\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\map_service.ts' | Select-Object -Skip 260 -First 80\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\map_service.ts' | Select-Object -Skip 330 -First 120\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\map_service.ts' | Select-Object -Skip 263 -First 140\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\map_service.ts' | Select-Object -Index \\(262..400\\)\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\start\\\\routes.ts'\")",
+      "Bash(powershell -Command \"Select-String -Path 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\start\\\\routes.ts' -Pattern 'maps|styles'\")",
+      "Bash(powershell -Command \"Select-String -Path 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\start\\\\routes.ts' -Pattern 'maps|styles' -Context 0,0 | ForEach-Object { $_.Line }\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\middleware\\\\maps_static_middleware.ts'\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\providers\\\\map_static_provider.ts'\")",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\map_service.ts' | ForEach-Object -Begin { $i = 1 } -Process { '{0:D3}: {1}' -f $i, $_; $i++ } | Where-Object { $_ -match '^\\(26[0-9]|2[7-9][0-9]|3[0-9][0-9]|4[0-5][0-9]\\)' }\")",
+      "Bash(python3:*)"
+    ]
+  }
+}

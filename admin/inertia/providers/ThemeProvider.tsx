@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { useTheme, Theme, Palette } from '~/hooks/useTheme'
+import { useTheme, Theme, Palette, CustomColors, DEFAULT_CUSTOM_COLORS } from '~/hooks/useTheme'
 
 interface ThemeContextType {
   theme: Theme
@@ -7,6 +7,8 @@ interface ThemeContextType {
   toggleTheme: () => void
   palette: Palette
   setPalette: (palette: Palette) => void
+  customColors: CustomColors
+  setCustomColors: (colors: CustomColors) => void
 }
 
 const ThemeContext = createContext<ThemeContextType>({
@@ -15,6 +17,8 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => {},
   palette: 'desert',
   setPalette: () => {},
+  customColors: DEFAULT_CUSTOM_COLORS,
+  setCustomColors: () => {},
 })
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

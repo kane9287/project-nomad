@@ -2,18 +2,13 @@ import Map, { FullscreenControl, NavigationControl, MapProvider } from 'react-ma
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { Protocol } from 'pmtiles'
-import { useEffect } from 'react'
+
+// Register the PMTiles protocol at module level so it is available
+// before MapLibre mounts and begins fetching tiles.
+const _pmtilesProtocol = new Protocol()
+maplibregl.addProtocol('pmtiles', _pmtilesProtocol.tile)
 
 export default function MapComponent() {
-
-  // Add the PMTiles protocol to maplibre-gl
-  useEffect(() => {
-    let protocol = new Protocol()
-    maplibregl.addProtocol('pmtiles', protocol.tile)
-    return () => {
-      maplibregl.removeProtocol('pmtiles')
-    }
-  }, [])
 
   return (
     <MapProvider>
