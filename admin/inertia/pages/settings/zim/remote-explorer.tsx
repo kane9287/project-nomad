@@ -326,6 +326,7 @@ export default function ZimRemoteExplorer() {
                 showSubmitButton
                 onSubmit={handleWikipediaSubmit}
                 isSubmitting={isSubmittingWikipedia}
+                upgradeAvailable={wikipediaState.currentSelection?.upgradeAvailable ?? false}
               />
             </div>
           ) : null}

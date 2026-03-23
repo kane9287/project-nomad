@@ -1,7 +1,7 @@
 import { formatBytes } from '~/lib/util'
 import { WikipediaOption, WikipediaCurrentSelection } from '../../types/downloads'
 import classNames from 'classnames'
-import { IconCheck, IconDownload, IconWorld, IconAlertTriangle } from '@tabler/icons-react'
+import { IconCheck, IconDownload, IconWorld, IconAlertTriangle, IconRefresh } from '@tabler/icons-react'
 import StyledButton from './StyledButton'
 import LoadingSpinner from './LoadingSpinner'
 
@@ -14,6 +14,7 @@ export interface WikipediaSelectorProps {
   showSubmitButton?: boolean // true for Content Explorer, false for wizard
   onSubmit?: () => void
   isSubmitting?: boolean
+  upgradeAvailable?: boolean
 }
 
 const WikipediaSelector: React.FC<WikipediaSelectorProps> = ({
@@ -25,6 +26,7 @@ const WikipediaSelector: React.FC<WikipediaSelectorProps> = ({
   showSubmitButton = false,
   onSubmit,
   isSubmitting = false,
+  upgradeAvailable = false,
 }) => {
   // Determine which option to highlight
   const highlightedOptionId = selectedOptionId ?? currentSelection?.optionId ?? null
@@ -68,6 +70,16 @@ const WikipediaSelector: React.FC<WikipediaSelectorProps> = ({
         </div>
       )}
 
+      {/* Upgrade available banner */}
+      {upgradeAvailable && !isDownloading && (
+        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-2">
+          <IconRefresh className="w-5 h-5 text-amber-600 flex-shrink-0" />
+          <span className="text-sm text-amber-700">
+            A newer version of your Wikipedia package is available. Click your current selection to update.
+          </span>
+        </div>
+      )}
+
       {/* Options grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {options.map((option) => {
@@ -89,7 +101,9 @@ const WikipediaSelector: React.FC<WikipediaSelectorProps> = ({
                 disabled || isCurrentDownloading
                   ? 'opacity-60 cursor-not-allowed'
                   : 'cursor-pointer hover:shadow-md',
-                isInstalled
+                isInstalled && upgradeAvailable
+                  ? 'border-amber-400 bg-amber-50'
+                  : isInstalled
                   ? 'border-desert-green bg-desert-green/10'
                   : isSelected
                     ? 'border-lime-500 bg-lime-50'
@@ -98,7 +112,13 @@ const WikipediaSelector: React.FC<WikipediaSelectorProps> = ({
             >
               {/* Status badges */}
               <div className="absolute top-2 right-2 flex gap-1">
-                {isInstalled && (
+                {isInstalled && upgradeAvailable && (
+                  <span className="text-xs bg-amber-500 text-white px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <IconRefresh size={12} />
+                    Update Available
+                  </span>
+                )}
+                {isInstalled && !upgradeAvailable && (
                   <span className="text-xs bg-desert-green text-white px-2 py-0.5 rounded-full flex items-center gap-1">
                     <IconCheck size={12} />
                     Installed
@@ -157,16 +177,20 @@ const WikipediaSelector: React.FC<WikipediaSelectorProps> = ({
       </div>
 
       {/* Submit button for Content Explorer mode */}
-      {showSubmitButton && selectedOptionId && (selectedOptionId !== currentSelection?.optionId || isFailed) && (
+      {showSubmitButton && selectedOptionId && (selectedOptionId !== currentSelection?.optionId || isFailed || (upgradeAvailable && selectedOptionId === currentSelection?.optionId)) && (
         <div className="mt-4 flex justify-end">
           <StyledButton
             variant="primary"
             onClick={onSubmit}
             disabled={isSubmitting || disabled}
             loading={isSubmitting}
-            icon="IconDownload"
+            icon={upgradeAvailable && selectedOptionId === currentSelection?.optionId ? 'IconRefresh' : 'IconDownload'}
           >
-            {selectedOptionId === 'none' ? 'Remove Wikipedia' : 'Download Selected'}
+            {selectedOptionId === 'none'
+              ? 'Remove Wikipedia'
+              : upgradeAvailable && selectedOptionId === currentSelection?.optionId
+              ? 'Update Wikipedia'
+              : 'Download Selected'}
           </StyledButton>
         </div>
       )}

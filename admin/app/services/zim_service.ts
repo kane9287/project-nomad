@@ -386,6 +386,13 @@ export class ZimService {
     const options = await this.getWikipediaOptions()
     const selection = await this.getWikipediaSelection()
 
+    let upgradeAvailable = false
+    if (selection?.status === 'installed' && selection.filename) {
+      const installedOption = options.find((opt) => opt.id === selection.option_id)
+      const latestFilename = installedOption?.url?.split('/').pop() ?? null
+      upgradeAvailable = latestFilename !== null && selection.filename !== latestFilename
+    }
+
     return {
       options,
       currentSelection: selection
@@ -394,6 +401,7 @@ export class ZimService {
           status: selection.status,
           filename: selection.filename,
           url: selection.url,
+          upgradeAvailable,
         }
         : null,
     }
@@ -409,9 +417,13 @@ export class ZimService {
 
     const currentSelection = await this.getWikipediaSelection()
 
-    // If same as currently installed, no action needed
+    // If same option is installed and the URL hasn't changed, no action needed
     if (currentSelection?.option_id === optionId && currentSelection.status === 'installed') {
-      return { success: true, message: 'Already installed' }
+      const latestFilename = selectedOption.url?.split('/').pop() ?? null
+      if (!latestFilename || currentSelection.filename === latestFilename) {
+        return { success: true, message: 'Already installed' }
+      }
+      // URL changed — fall through to trigger upgrade download
     }
 
     // Handle "none" option - delete current Wikipedia file and update DB

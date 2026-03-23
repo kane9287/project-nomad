@@ -52,6 +52,7 @@ export type WikipediaOption = {
   description: string
   size_mb: number
   url: string | null
+  version: string | null
 }
 
 export type WikipediaOptionsFile = {
@@ -63,6 +64,7 @@ export type WikipediaCurrentSelection = {
   status: 'none' | 'downloading' | 'installed' | 'failed'
   filename: string | null
   url: string | null
+  upgradeAvailable: boolean
 }
 
 export type WikipediaState = {

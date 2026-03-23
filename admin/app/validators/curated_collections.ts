@@ -76,6 +76,7 @@ export const wikipediaOptionSchema = vine.object({
   description: vine.string(),
   size_mb: vine.number().min(0),
   url: vine.string().url().nullable(),
+  version: vine.string().nullable(),
 })
 
 export const wikipediaOptionsFileSchema = vine.object({

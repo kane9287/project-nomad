@@ -23,7 +23,8 @@
       "Bash(xargs grep:*)",
       "Bash(grep -rn \"10MB\\\\|10485760\\\\|file.*upload\\\\|document.*upload\" 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github' --include=*.md)",
       "WebFetch(domain:library.kiwix.org)",
-      "WebFetch(domain:download.kiwix.org)"
+      "WebFetch(domain:download.kiwix.org)",
+      "Bash(find '/c/Users/Christopher/Documents/Calude AI stuff/NOMAD_github' -type f -name *kiwix* -o -name *content* -o -name *zim*)"
     ]
   }
 }
