@@ -82,8 +82,8 @@ export default function MapComponent({
   return (
     <MapProvider>
       <Map
-        id="main-map"
-        style={{ width: '100%', height: '100%' }}
+        reuseMaps
+        style={{ width: '100%', height: '100vh' }}
         mapStyle={mapStyle}
         mapLib={maplibregl}
         cursor={placingMode ? 'crosshair' : 'grab'}
