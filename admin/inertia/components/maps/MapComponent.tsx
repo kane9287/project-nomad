@@ -21,7 +21,12 @@ function rewriteStyleUrls(style: any): any {
   const origin = window.location.origin
 
   for (const source of Object.values(style.sources) as any[]) {
-    if (source.url && source.url.startsWith('http')) {
+    if (source.url && source.url.startsWith('pmtiles://http')) {
+      // pmtiles://http://old-host/pmtiles/file.pmtiles → pmtiles://{origin}/pmtiles/file.pmtiles
+      const inner = source.url.slice('pmtiles://'.length)
+      const url = new URL(inner)
+      source.url = 'pmtiles://' + origin + url.pathname + url.search
+    } else if (source.url && source.url.startsWith('http')) {
       const url = new URL(source.url)
       source.url = origin + url.pathname + url.search
     }

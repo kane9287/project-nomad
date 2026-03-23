@@ -14,6 +14,8 @@ import StyledButton from '~/components/StyledButton'
 type Mode = 'list' | 'add-placing' | 'add-form' | 'edit'
 
 interface PoiPanelProps {
+  open: boolean
+  onClose: () => void
   pois: Poi[]
   placingMode: boolean
   pendingCoords: { lat: number; lng: number } | null
@@ -34,6 +36,8 @@ const defaultForm = (): Omit<PoiPayload, 'lat' | 'lng'> => ({
 })
 
 export default function PoiPanel({
+  open,
+  onClose,
   pois,
   placingMode,
   pendingCoords,
@@ -45,22 +49,33 @@ export default function PoiPanel({
   onSelectPoi,
   selectedPoiId,
 }: PoiPanelProps) {
-  const [open, setOpen] = useState(false)
   const [mode, setMode] = useState<Mode>('list')
   const [form, setForm] = useState(defaultForm())
   const [editId, setEditId] = useState<number | null>(null)
   const [saving, setSaving] = useState(false)
   const [deleteConfirmId, setDeleteConfirmId] = useState<number | null>(null)
 
-  const handleOpen = () => setOpen(true)
+  // Reset panel state when closed
+  useEffect(() => {
+    if (!open) {
+      setMode('list')
+      setForm(defaultForm())
+      setEditId(null)
+      setDeleteConfirmId(null)
+    }
+  }, [open])
+
+  // When map click sets pending coords, advance from placing to form
+  useEffect(() => {
+    if (placingMode && pendingCoords && mode === 'add-placing') {
+      setMode('add-form')
+    }
+  }, [pendingCoords, placingMode, mode])
+
   const handleClose = () => {
-    setOpen(false)
-    setMode('list')
-    setForm(defaultForm())
-    setEditId(null)
-    setDeleteConfirmId(null)
     if (placingMode) onCancelPlacing()
     onSelectPoi(null)
+    onClose()
   }
 
   const handleStartAdd = () => {
@@ -122,13 +137,6 @@ export default function PoiPanel({
       setSaving(false)
     }
   }
-
-  // When map click sets pending coords, advance to form
-  useEffect(() => {
-    if (placingMode && pendingCoords && mode === 'add-placing') {
-      setMode('add-form')
-    }
-  }, [pendingCoords, placingMode, mode])
 
   const renderForm = (onSave: () => void, onBack: () => void) => (
     <div className="flex flex-col gap-3 p-4">
@@ -333,35 +341,9 @@ export default function PoiPanel({
         </div>
       )}
 
-      {/* Toggle button */}
-      {!open && (
-        <button
-          onClick={handleOpen}
-          className="absolute bottom-8 right-14 z-40 bg-surface-primary border border-border rounded-full p-3 shadow-lg hover:bg-surface-secondary transition-colors"
-          title="Points of Interest"
-        >
-          <IconMapPin size={20} className="text-text-primary" />
-        </button>
-      )}
-
-      {/* Panel */}
+      {/* Side panel */}
       {open && (
         <div className="absolute right-0 top-0 bottom-0 z-40 w-72 bg-surface-primary border-l border-border shadow-xl flex flex-col">
-          {/* Panel header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-surface-secondary">
-            <div className="flex items-center gap-2">
-              <IconMapPin size={16} className="text-primary" />
-              <span className="text-sm font-semibold text-text-primary">POIs</span>
-            </div>
-            <button
-              onClick={handleClose}
-              className="p-1 rounded hover:bg-surface-tertiary text-text-secondary transition-colors"
-            >
-              <IconX size={16} />
-            </button>
-          </div>
-
-          {/* Panel body */}
           <div className="flex-1 overflow-hidden">
             {(mode === 'list' || mode === 'add-placing') && renderList()}
             {mode === 'add-form' &&

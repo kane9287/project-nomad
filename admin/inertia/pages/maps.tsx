@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/react'
 import MapComponent from '~/components/maps/MapComponent'
 import PoiPanel from '~/components/maps/PoiPanel'
 import StyledButton from '~/components/StyledButton'
+import { IconMapPin } from '@tabler/icons-react'
 import { FileEntry } from '../../types/files'
 import Alert from '~/components/Alert'
 import { useEffect, useState } from 'react'
@@ -17,6 +18,7 @@ export default function Maps(props: {
     : null
 
   const [pois, setPois] = useState<Poi[]>([])
+  const [poiPanelOpen, setPoiPanelOpen] = useState(false)
   const [placingMode, setPlacingMode] = useState(false)
   const [pendingCoords, setPendingCoords] = useState<{ lat: number; lng: number } | null>(null)
   const [selectedPoiId, setSelectedPoiId] = useState<number | null>(null)
@@ -49,20 +51,41 @@ export default function Maps(props: {
     if (selectedPoiId === id) setSelectedPoiId(null)
   }
 
-  const handleSelectPoi = (poi: Poi | null) => {
-    setSelectedPoiId(poi?.id ?? null)
+  const handleClosePanel = () => {
+    setPoiPanelOpen(false)
+    setPlacingMode(false)
+    setPendingCoords(null)
+    setSelectedPoiId(null)
   }
 
   return (
     <MapsLayout>
       <Head title="Maps" />
       <div className="relative w-full h-screen overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 z-50 flex justify-between p-4 bg-surface-secondary backdrop-blur-sm shadow-sm">
+        {/* Top banner */}
+        <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-surface-secondary backdrop-blur-sm shadow-sm">
           <Link href="/home">
             <StyledButton variant="secondary" size="sm" icon="IconArrowLeft">
               Back
             </StyledButton>
           </Link>
+
+          {poiPanelOpen ? (
+            <StyledButton variant="secondary" size="sm" icon="IconX" onClick={handleClosePanel}>
+              Close POI Panel
+            </StyledButton>
+          ) : (
+            <StyledButton
+              variant="secondary"
+              size="sm"
+              onClick={() => setPoiPanelOpen(true)}
+            >
+              <span className="flex items-center gap-1.5">
+                <IconMapPin size={15} />
+                POI
+              </span>
+            </StyledButton>
+          )}
         </div>
 
         {alertMessage && (
@@ -85,11 +108,16 @@ export default function Maps(props: {
             placingMode={placingMode}
             selectedPoiId={selectedPoiId}
             onMapClick={handleMapClick}
-            onPoiClick={(poi) => setSelectedPoiId(poi.id)}
+            onPoiClick={(poi) => {
+              setSelectedPoiId(poi.id)
+              setPoiPanelOpen(true)
+            }}
           />
         </div>
 
         <PoiPanel
+          open={poiPanelOpen}
+          onClose={handleClosePanel}
           pois={pois}
           placingMode={placingMode}
           pendingCoords={pendingCoords}
@@ -104,7 +132,7 @@ export default function Maps(props: {
           onCreate={handleCreate}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
-          onSelectPoi={handleSelectPoi}
+          onSelectPoi={(poi) => setSelectedPoiId(poi?.id ?? null)}
           selectedPoiId={selectedPoiId}
         />
       </div>
