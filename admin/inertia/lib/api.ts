@@ -6,6 +6,7 @@ import { CheckLatestVersionResult, SystemInformationResponse, SystemUpdateStatus
 import { DownloadJobWithProgress, WikipediaState } from '../../types/downloads'
 import { EmbedJobWithProgress } from '../../types/rag'
 import type { CategoryWithStatus, CollectionWithStatus, ContentUpdateCheckResult, ResourceUpdateInfo } from '../../types/collections'
+import type { Poi, PoiPayload } from '../../types/maps'
 import { catchInternal } from './util'
 import { NomadOllamaModel, OllamaChatRequest } from '../../types/ollama'
 import { ChatResponse, ModelResponse } from 'ollama'
@@ -671,6 +672,34 @@ class API {
         '/system/settings',
         { key, value }
       )
+      return response.data
+    })()
+  }
+
+  async getPois() {
+    return catchInternal(async () => {
+      const response = await this.client.get<Poi[]>('/pois')
+      return response.data
+    })()
+  }
+
+  async createPoi(payload: PoiPayload) {
+    return catchInternal(async () => {
+      const response = await this.client.post<Poi>('/pois', payload)
+      return response.data
+    })()
+  }
+
+  async updatePoi(id: number, payload: Partial<PoiPayload>) {
+    return catchInternal(async () => {
+      const response = await this.client.put<Poi>(`/pois/${id}`, payload)
+      return response.data
+    })()
+  }
+
+  async deletePoi(id: number) {
+    return catchInternal(async () => {
+      const response = await this.client.delete<{ message: string }>(`/pois/${id}`)
       return response.data
     })()
   }

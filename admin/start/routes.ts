@@ -13,6 +13,7 @@ import DownloadsController from '#controllers/downloads_controller'
 import EasySetupController from '#controllers/easy_setup_controller'
 import HomeController from '#controllers/home_controller'
 import MapsController from '#controllers/maps_controller'
+import PoiController from '#controllers/poi_controller'
 import OllamaController from '#controllers/ollama_controller'
 import RagController from '#controllers/rag_controller'
 import SettingsController from '#controllers/settings_controller'
@@ -82,6 +83,15 @@ router
     router.delete('/:filename', [MapsController, 'delete'])
   })
   .prefix('/api/maps')
+
+router
+  .group(() => {
+    router.get('/', [PoiController, 'index'])
+    router.post('/', [PoiController, 'store'])
+    router.put('/:id', [PoiController, 'update'])
+    router.delete('/:id', [PoiController, 'destroy'])
+  })
+  .prefix('/api/pois')
 
 router
   .group(() => {
