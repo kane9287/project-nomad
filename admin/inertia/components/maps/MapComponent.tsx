@@ -90,7 +90,7 @@ export default function MapComponent({
         initialViewState={{
           longitude: -98,
           latitude: 40,
-          zoom: 3.5,
+          zoom: 4,
         }}
         onClick={handleMapClick}
       >
