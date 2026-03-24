@@ -1,3 +1,5 @@
+# **THIS REPO IS A PERSONAL WIP FOR FUN VIBE CODED VERSION OF THE OG PROJECT NOMAD. PULL AT YOUR OWN RISK. USE AT YOUR OWN RISK. ITS NOT MAILICOUS BUT ITS CLAUDE. GO TO THE OG GITHUB FOR THE OG PRODUCT, OK?**
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/Crosstalk-Solutions/project-nomad/refs/heads/main/admin/public/project_nomad_logo.png" width="200" height="200"/>
 
