@@ -1,6 +1,7 @@
 import {
   IconBolt,
   IconBattery2,
+  IconDroplet,
   IconHelp,
   IconMapRoute,
   IconPlus,
@@ -31,6 +32,17 @@ const MAPS_ITEM = {
 
 // System items shown after all apps
 const SYSTEM_ITEMS = [
+  {
+    label: 'Water Safety',
+    to: '/water-calculator',
+    target: '',
+    description: 'Estimate water source risk, calculate purification dosing, and get treatment guidance.',
+    icon: <IconDroplet size={48} />,
+    installed: true,
+    displayOrder: 48,
+    poweredBy: null,
+  },
+
   {
     label: 'Power Calculator',
     to: '/power-calculator',

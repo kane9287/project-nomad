@@ -21,6 +21,7 @@ import SystemController from '#controllers/system_controller'
 import CollectionUpdatesController from '#controllers/collection_updates_controller'
 import ZimController from '#controllers/zim_controller'
 import PowerCalculatorController from '#controllers/power_calculator_controller'
+import WaterCalculatorController from '#controllers/water_calculator_controller'
 import router from '@adonisjs/core/services/router'
 import transmit from '@adonisjs/transmit/services/main'
 
@@ -34,6 +35,7 @@ router.get('/maps', [MapsController, 'index'])
 router.on('/knowledge-base').redirectToPath('/chat?knowledge_base=true') // redirect for legacy knowledge-base links
 
 router.get('/power-calculator', [PowerCalculatorController, 'index'])
+router.get('/water-calculator', [WaterCalculatorController, 'index'])
 
 router.get('/easy-setup', [EasySetupController, 'index'])
 router.get('/easy-setup/complete', [EasySetupController, 'complete'])
