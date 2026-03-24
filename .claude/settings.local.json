@@ -32,7 +32,8 @@
       "Bash(sed -n '1,15p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")",
       "Bash(sed -n '32,45p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")",
       "Bash(sed -n '62,95p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "WebFetch(domain:cellsaviors.com)"
     ]
   }
 }
