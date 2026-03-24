@@ -2,7 +2,7 @@ import Map, { FullscreenControl, NavigationControl, MapProvider, Marker, Popup }
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { Protocol } from 'pmtiles'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import type { MapMouseEvent } from 'react-map-gl/maplibre'
 import type { Poi } from '../../../types/maps'
 
@@ -55,7 +55,7 @@ interface MapComponentProps {
   onPoiClick?: (poi: Poi) => void
 }
 
-export default function MapComponent({
+function MapComponent({
   pois = [],
   placingMode = false,
   selectedPoiId = null,
@@ -165,3 +165,5 @@ export default function MapComponent({
     </MapProvider>
   )
 }
+
+export default memo(MapComponent)

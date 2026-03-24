@@ -3,10 +3,10 @@ import { Head, Link } from '@inertiajs/react'
 import MapComponent from '~/components/maps/MapComponent'
 import PoiPanel from '~/components/maps/PoiPanel'
 import StyledButton from '~/components/StyledButton'
-import { IconMapPin } from '@tabler/icons-react'
+import { IconMapPin, IconMap } from '@tabler/icons-react'
 import { FileEntry } from '../../types/files'
 import Alert from '~/components/Alert'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { Poi, PoiPayload } from '../../types/maps'
 import api from '~/lib/api'
 
@@ -29,10 +29,15 @@ export default function Maps(props: {
     })
   }, [])
 
-  const handleMapClick = (lat: number, lng: number) => {
+  const handleMapClick = useCallback((lat: number, lng: number) => {
     if (!placingMode) return
     setPendingCoords({ lat, lng })
-  }
+  }, [placingMode])
+
+  const handlePoiClick = useCallback((poi: Poi) => {
+    setSelectedPoiId(poi.id)
+    setPoiPanelOpen(true)
+  }, [])
 
   const handleCreate = async (payload: PoiPayload) => {
     const created = await api.createPoi(payload)
@@ -70,22 +75,30 @@ export default function Maps(props: {
             </StyledButton>
           </Link>
 
-          {poiPanelOpen ? (
-            <StyledButton variant="secondary" size="sm" icon="IconX" onClick={handleClosePanel}>
-              Close POI Panel
-            </StyledButton>
-          ) : (
-            <StyledButton
-              variant="secondary"
-              size="sm"
-              onClick={() => setPoiPanelOpen(true)}
-            >
-              <span className="flex items-center gap-1.5">
-                <IconMapPin size={15} />
-                POI
-              </span>
-            </StyledButton>
-          )}
+          <div className="flex items-center gap-2">
+            <Link href="/settings/maps">
+              <StyledButton variant="secondary" size="sm" icon="IconMap">
+                Manage Map Regions
+              </StyledButton>
+            </Link>
+
+            {poiPanelOpen ? (
+              <StyledButton variant="secondary" size="sm" icon="IconX" onClick={handleClosePanel}>
+                Close POI Panel
+              </StyledButton>
+            ) : (
+              <StyledButton
+                variant="secondary"
+                size="sm"
+                onClick={() => setPoiPanelOpen(true)}
+              >
+                <span className="flex items-center gap-1.5">
+                  <IconMapPin size={15} />
+                  POI
+                </span>
+              </StyledButton>
+            )}
+          </div>
         </div>
 
         {alertMessage && (
@@ -108,10 +121,7 @@ export default function Maps(props: {
             placingMode={placingMode}
             selectedPoiId={selectedPoiId}
             onMapClick={handleMapClick}
-            onPoiClick={(poi) => {
-              setSelectedPoiId(poi.id)
-              setPoiPanelOpen(true)
-            }}
+            onPoiClick={handlePoiClick}
           />
         </div>
 

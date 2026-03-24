@@ -343,8 +343,8 @@ export default function PoiPanel({
 
       {/* Side panel — top-[65px] to sit below the banner bar */}
       {open && (
-        <div className="absolute right-0 top-[65px] bottom-0 z-40 w-72 bg-surface-primary border-l border-border shadow-xl flex flex-col">
-          <div className="flex-1 overflow-hidden">
+        <div className="absolute bottom-6 right-4 z-40 w-72 max-h-[60vh] bg-surface-primary border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto flex flex-col min-h-0">
             {(mode === 'list' || mode === 'add-placing') && renderList()}
             {mode === 'add-form' &&
               renderForm(handleSaveNew, () => {

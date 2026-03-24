@@ -25,7 +25,13 @@
       "WebFetch(domain:library.kiwix.org)",
       "WebFetch(domain:download.kiwix.org)",
       "Bash(find '/c/Users/Christopher/Documents/Calude AI stuff/NOMAD_github' -type f -name *kiwix* -o -name *content* -o -name *zim*)",
-      "Bash(awk:*)"
+      "Bash(awk:*)",
+      "Bash(find '/c/Users/Christopher/Documents/Calude AI stuff/NOMAD_github' -type f -path */storage/maps*)",
+      "Bash(grep:*)",
+      "Bash(find '/c/Users/Christopher/Documents/Calude AI stuff/NOMAD_github' -type f -name *style*)",
+      "Bash(sed -n '1,15p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")",
+      "Bash(sed -n '32,45p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")",
+      "Bash(sed -n '62,95p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")"
     ]
   }
 }
