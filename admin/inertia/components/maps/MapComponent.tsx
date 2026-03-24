@@ -1,8 +1,8 @@
-import Map, { FullscreenControl, NavigationControl, MapProvider, Marker, Popup } from 'react-map-gl/maplibre'
+import Map, { FullscreenControl, NavigationControl, MapProvider, Marker, Popup, type MapRef } from 'react-map-gl/maplibre'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { Protocol } from 'pmtiles'
-import { memo, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import type { MapMouseEvent } from 'react-map-gl/maplibre'
 import type { Poi } from '../../../types/maps'
 
@@ -64,6 +64,8 @@ function MapComponent({
 }: MapComponentProps) {
   const [mapStyle, setMapStyle] = useState<object | undefined>(undefined)
   const [popupPoi, setPopupPoi] = useState<Poi | null>(null)
+  const mapRef = useRef<MapRef>(null)
+  const [mapReady, setMapReady] = useState(false)
 
   useEffect(() => {
     fetch('/api/maps/styles')
@@ -77,13 +79,19 @@ function MapComponent({
     onMapClick(e.lngLat.lat, e.lngLat.lng)
   }
 
+  const handleMapLoad = useCallback(() => {
+    mapRef.current?.resize()
+    setMapReady(true)
+  }, [])
+
   if (!mapStyle) return null
 
   return (
     <MapProvider>
       <Map
+        ref={mapRef}
         reuseMaps
-        style={{ width: '100%', height: '100vh' }}
+        style={{ width: '100%', height: '100%' }}
         mapStyle={mapStyle}
         mapLib={maplibregl}
         cursor={placingMode ? 'crosshair' : 'grab'}
@@ -93,11 +101,12 @@ function MapComponent({
           zoom: 4,
         }}
         onClick={handleMapClick}
+        onLoad={handleMapLoad}
       >
         <NavigationControl style={{ marginTop: '110px', marginRight: '36px' }} />
         <FullscreenControl style={{ marginTop: '30px', marginRight: '36px' }} />
 
-        {pois.map((poi) => (
+        {mapReady && pois.map((poi) => (
           <Marker
             key={poi.id}
             longitude={poi.lng}
@@ -134,7 +143,7 @@ function MapComponent({
           </Marker>
         ))}
 
-        {popupPoi && (
+        {mapReady && popupPoi && (
           <Popup
             longitude={popupPoi.lng}
             latitude={popupPoi.lat}
