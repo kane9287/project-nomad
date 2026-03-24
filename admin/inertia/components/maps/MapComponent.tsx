@@ -38,10 +38,12 @@ function rewriteStyleUrls(style: any): any {
     style.sprite = origin + url.pathname + url.search
   }
 
-  // Rewrite glyphs URL — preserve {fontstack}/{range} template tokens
+  // Rewrite glyphs URL — must NOT use new URL() because {fontstack}/{range}
+  // template tokens are not valid URL characters and get percent-encoded.
+  // Instead, replace only the origin prefix with a string replacement.
   if (typeof style.glyphs === 'string' && style.glyphs.startsWith('http')) {
-    const url = new URL(style.glyphs)
-    style.glyphs = origin + url.pathname + url.search
+    const withoutProtocol = style.glyphs.replace(/^https?:\/\/[^/]+/, '')
+    style.glyphs = origin + withoutProtocol
   }
 
   return style
