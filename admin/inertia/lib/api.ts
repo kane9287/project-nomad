@@ -535,6 +535,13 @@ class API {
     })()
   }
 
+  async scanZimLibrary(): Promise<{ message: string } | undefined> {
+    return catchInternal(async () => {
+      const response = await this.client.post<{ message: string }>('/zim/scan')
+      return response.data
+    })()
+  }
+
   async listDownloadJobs(filetype?: string): Promise<DownloadJobWithProgress[] | undefined> {
     return catchInternal(async () => {
       const endpoint = filetype ? `/downloads/jobs/${filetype}` : '/downloads/jobs'

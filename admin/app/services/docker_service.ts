@@ -12,6 +12,7 @@ import { promisify } from 'util'
 // import { readdir } from 'fs/promises'
 import KVStore from '#models/kv_store'
 import { BROADCAST_CHANNELS } from '../../constants/broadcast.js'
+import env from '#start/env'
 
 @inject()
 export class DockerService {
@@ -609,6 +610,47 @@ export class DockerService {
     }
   }
 
+  /**
+   * Rebuilds /data/library.xml inside a temporary kiwix-serve container by running
+   * kiwix-manage against every .zim file currently in the ZIM storage directory.
+   * kiwix-serve then reads this pre-computed metadata on startup instead of scanning
+   * each ZIM cold, which prevents the boot-loop caused by large ZIM files.
+   */
+  async rebuildKiwixLibrary(): Promise<void> {
+    logger.info('[DockerService] Rebuilding Kiwix library.xml...')
+
+    const kiwixService = await Service.query().where('service_name', SERVICE_NAMES.KIWIX).first()
+    const image = kiwixService?.container_image ?? 'ghcr.io/kiwix/kiwix-serve:3.8.1'
+    const zimHostPath = `${env.get('NOMAD_STORAGE_PATH', '/opt/project-nomad/storage')}/zim`
+
+    // Remove the old library.xml then add each .zim found in /data.
+    // The [ -f "$f" ] guard handles the case where no .zim files exist and the
+    // shell glob expands to the literal string "/data/*.zim".
+    const cmd =
+      'rm -f /data/library.xml; for f in /data/*.zim; do [ -f "$f" ] && kiwix-manage /data/library.xml add "$f"; done'
+
+    const container = await this.docker.createContainer({
+      Image: image,
+      Cmd: ['sh', '-c', cmd],
+      HostConfig: {
+        Binds: [`${zimHostPath}:/data`],
+      },
+    })
+
+    try {
+      await container.start()
+      const result = await container.wait()
+      if (result.StatusCode !== 0) {
+        throw new Error(`kiwix-manage exited with code ${result.StatusCode}`)
+      }
+      logger.info('[DockerService] Kiwix library.xml rebuilt successfully.')
+    } finally {
+      await container.remove({ force: true }).catch((err) => {
+        logger.warn(`[DockerService] Could not remove kiwix-manage temp container: ${err.message}`)
+      })
+    }
+  }
+
   private async _runPreinstallActions__KiwixServe(): Promise<void> {
     /**
      * At least one .zim file must be available before we can start the kiwix container.
@@ -648,6 +690,10 @@ export class DockerService {
         'preinstall',
         `Downloaded Wikipedia ZIM file to ${filepath}`
       )
+
+      this._broadcast(SERVICE_NAMES.KIWIX, 'preinstall', 'Building Kiwix library index...')
+      await this.rebuildKiwixLibrary()
+      this._broadcast(SERVICE_NAMES.KIWIX, 'preinstall', 'Kiwix library index built.')
     } catch (error) {
       this._broadcast(
         SERVICE_NAMES.KIWIX,

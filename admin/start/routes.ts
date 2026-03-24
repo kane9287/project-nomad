@@ -182,6 +182,8 @@ router
     router.post('/download-remote', [ZimController, 'downloadRemote'])
     router.post('/download-category-tier', [ZimController, 'downloadCategoryTier'])
 
+    router.post('/scan', [ZimController, 'scan'])
+
     router.get('/wikipedia', [ZimController, 'getWikipediaState'])
     router.post('/wikipedia/select', [ZimController, 'selectWikipedia'])
     router.delete('/:filename', [ZimController, 'delete'])

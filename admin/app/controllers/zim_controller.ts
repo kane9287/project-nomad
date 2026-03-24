@@ -77,6 +77,11 @@ export default class ZimController {
 
   // Wikipedia selector endpoints
 
+  async scan({ response }: HttpContext) {
+    await this.zimService.scanAndRebuildLibrary()
+    return response.ok({ message: 'Library rebuilt and Kiwix restarted successfully.' })
+  }
+
   async getWikipediaState({}: HttpContext) {
     return this.zimService.getWikipediaState()
   }

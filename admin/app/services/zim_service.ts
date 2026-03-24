@@ -283,6 +283,13 @@ export class ZimService {
       if (hasRemainingZimJobs) {
         logger.info('[ZimService] Skipping container restart - more ZIM downloads pending')
       } else {
+        // Rebuild library.xml so kiwix-serve picks up the new ZIM on restart without
+        // cold-scanning it (which causes boot-loops with large files like full Wikipedia).
+        logger.info('[ZimService] Rebuilding Kiwix library index before restart...')
+        await this.dockerService.rebuildKiwixLibrary().catch((error) => {
+          logger.error(`[ZimService] Failed to rebuild Kiwix library:`, error)
+        })
+
         // Restart KIWIX container to pick up new ZIM file
         logger.info('[ZimService] No more ZIM downloads pending - restarting KIWIX container')
         await this.dockerService
@@ -356,6 +363,27 @@ export class ZimService {
         .delete()
       logger.info(`[ZimService] Deleted InstalledResource entry for: ${parsed.resource_id}`)
     }
+
+    // Rebuild library.xml (removes the deleted ZIM entry) then restart kiwix so it
+    // stops serving the removed file immediately.
+    await this.dockerService.rebuildKiwixLibrary().catch((error) => {
+      logger.error(`[ZimService] Failed to rebuild Kiwix library after delete:`, error)
+    })
+    await this.dockerService
+      .affectContainer(SERVICE_NAMES.KIWIX, 'restart')
+      .catch((error) => {
+        logger.error(`[ZimService] Failed to restart Kiwix after ZIM delete:`, error)
+      })
+  }
+
+  async scanAndRebuildLibrary(): Promise<void> {
+    logger.info('[ZimService] Scanning ZIM directory and rebuilding Kiwix library...')
+    await this.dockerService.rebuildKiwixLibrary()
+    await this.dockerService
+      .affectContainer(SERVICE_NAMES.KIWIX, 'restart')
+      .catch((error) => {
+        logger.error('[ZimService] Failed to restart Kiwix after scan:', error)
+      })
   }
 
   // Wikipedia selector methods
@@ -454,7 +482,10 @@ export class ZimService {
         })
       }
 
-      // Restart Kiwix to reflect the change
+      // Rebuild library.xml (removes the deleted Wikipedia entry) then restart Kiwix.
+      await this.dockerService.rebuildKiwixLibrary().catch((error) => {
+        logger.error(`[ZimService] Failed to rebuild Kiwix library after Wikipedia removal:`, error)
+      })
       await this.dockerService
         .affectContainer(SERVICE_NAMES.KIWIX, 'restart')
         .catch((error) => {
