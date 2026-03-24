@@ -1,5 +1,6 @@
 import {
   IconBolt,
+  IconBattery2,
   IconHelp,
   IconMapRoute,
   IconPlus,
@@ -30,6 +31,18 @@ const MAPS_ITEM = {
 
 // System items shown after all apps
 const SYSTEM_ITEMS = [
+  {
+    label: 'Power Calculator',
+    to: '/power-calculator',
+    target: '',
+    description:
+      'Size battery packs, wire gauges, and fuses for off-grid power systems and rebuilds.',
+    icon: <IconBattery2 size={48} />,
+    installed: true,
+    displayOrder: 49,
+    poweredBy: null,
+  },
+
   {
     label: 'Easy Setup',
     to: '/easy-setup',
