@@ -11,6 +11,7 @@ export const KV_STORE_SCHEMA = {
   'ui.palette':                 'string',
   'ai.assistantCustomName':     'string',
   'gpu.type':                   'string',
+  'ollama.customModels':        'string',
 } as const
 
 type KVTagToType<T extends string> = T extends 'boolean' ? boolean : string

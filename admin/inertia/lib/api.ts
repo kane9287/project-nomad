@@ -255,6 +255,20 @@ class API {
     })()
   }
 
+  async addCustomOllamaModel(model: NomadOllamaModel) {
+    return catchInternal(async () => {
+      const response = await this.client.post<{ success: boolean; message: string }>('/ollama/custom-models', { model })
+      return response.data
+    })()
+  }
+
+  async deleteCustomOllamaModel(modelId: string) {
+    return catchInternal(async () => {
+      const response = await this.client.delete<{ success: boolean; message: string }>(`/ollama/custom-models/${modelId}`)
+      return response.data
+    })()
+  }
+
   async sendChatMessage(chatRequest: OllamaChatRequest) {
     return catchInternal(async () => {
       const response = await this.client.post<ChatResponse>('/ollama/chat', chatRequest)

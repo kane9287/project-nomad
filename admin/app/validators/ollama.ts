@@ -23,3 +23,26 @@ export const getAvailableModelsSchema = vine.compile(
     force: vine.boolean().optional(),
   })
 )
+
+export const customModelSchema = vine.compile(
+  vine.object({
+    model: vine.object({
+      id: vine.string().trim().minLength(1),
+      name: vine.string().trim().minLength(1),
+      description: vine.string().trim().optional().transform((v) => v ?? ''),
+      estimated_pulls: vine.string().trim().optional().transform((v) => v ?? 'Custom'),
+      model_last_updated: vine.string().trim().optional().transform((v) => v ?? 'Just added'),
+      first_seen: vine.string().trim().optional().transform((v) => v ?? new Date().toISOString()),
+      tags: vine.array(
+        vine.object({
+          name: vine.string().trim().minLength(1),
+          size: vine.string().trim().optional().transform((v) => v ?? 'Unknown'),
+          context: vine.string().trim().optional().transform((v) => v ?? 'Unknown'),
+          input: vine.string().trim().optional().transform((v) => v ?? 'Text'),
+          cloud: vine.boolean().optional().transform((v) => v ?? false),
+          thinking: vine.boolean().optional().transform((v) => v ?? false),
+        })
+      ).minLength(1),
+    }),
+  })
+)

@@ -33,7 +33,9 @@
       "Bash(sed -n '32,45p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")",
       "Bash(sed -n '62,95p' \"C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\maps.tsx\")",
       "Bash(git:*)",
-      "WebFetch(domain:cellsaviors.com)"
+      "WebFetch(domain:cellsaviors.com)",
+      "WebFetch(domain:api.projectnomad.us)",
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\ollama_service.ts' -TotalCount 30\")"
     ]
   }
 }

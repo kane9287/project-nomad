@@ -14,9 +14,9 @@ import { ModelResponse } from 'ollama'
 import { SERVICE_NAMES } from '../../../constants/service_names'
 import Switch from '~/components/inputs/Switch'
 import StyledSectionHeader from '~/components/StyledSectionHeader'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Input from '~/components/inputs/Input'
-import { IconSearch, IconRefresh } from '@tabler/icons-react'
+import { IconSearch, IconRefresh, IconInfoCircle } from '@tabler/icons-react'
 import useDebounce from '~/hooks/useDebounce'
 import ActiveModelDownloads from '~/components/ActiveModelDownloads'
 import { useSystemInfo } from '~/hooks/useSystemInfo'
@@ -98,9 +98,16 @@ export default function ModelsPage(props: {
     props.models.settings.aiAssistantCustomName
   )
 
+  const queryClient = useQueryClient()
   const [query, setQuery] = useState('')
   const [queryUI, setQueryUI] = useState('')
   const [limit, setLimit] = useState(15)
+
+  // Custom model form state
+  const [customTag, setCustomTag] = useState('')
+  const [customDesc, setCustomDesc] = useState('')
+  const [customSize, setCustomSize] = useState('')
+  const [customThinking, setCustomThinking] = useState(false)
 
   const debouncedSetQuery = debounce((val: string) => {
     setQuery(val)
@@ -108,6 +115,123 @@ export default function ModelsPage(props: {
 
   const forceRefreshRef = useRef(false)
   const [isForceRefreshing, setIsForceRefreshing] = useState(false)
+
+  const addCustomModelMutation = useMutation({
+    mutationFn: async () => {
+      const tag = customTag.trim()
+      const name = tag.split(':')[0]
+      const model: NomadOllamaModel = {
+        id: crypto.randomUUID(),
+        name,
+        description: customDesc.trim() || `Custom model: ${name}`,
+        estimated_pulls: 'Custom',
+        model_last_updated: 'Just added',
+        first_seen: new Date().toISOString(),
+        tags: [{
+          name: tag,
+          size: customSize.trim() || 'Unknown',
+          context: 'Unknown',
+          input: 'Text',
+          cloud: false,
+          thinking: customThinking,
+        }],
+      }
+      return api.addCustomOllamaModel(model)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ollama', 'availableModels'] })
+      addNotification({ message: 'Custom model added.', type: 'success' })
+      setCustomTag('')
+      setCustomDesc('')
+      setCustomSize('')
+      setCustomThinking(false)
+      closeAllModals()
+    },
+    onError: () => {
+      addNotification({ message: 'Failed to add custom model.', type: 'error' })
+    },
+  })
+
+  const deleteCustomModelMutation = useMutation({
+    mutationFn: (modelId: string) => api.deleteCustomOllamaModel(modelId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ollama', 'availableModels'] })
+      addNotification({ message: 'Custom model removed.', type: 'success' })
+    },
+    onError: () => {
+      addNotification({ message: 'Failed to remove custom model.', type: 'error' })
+    },
+  })
+
+  function openAddCustomModelModal() {
+    openModal(
+      <StyledModal
+        title="Add Custom Model"
+        onConfirm={() => addCustomModelMutation.mutate()}
+        onCancel={closeAllModals}
+        open={true}
+        confirmText="Add Model"
+        cancelText="Cancel"
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Ollama tag <span className="text-status-error">*</span>
+              <a
+                href="https://ollama.com/library"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center ml-1 text-text-muted hover:text-text-primary"
+                title="Find tags at ollama.com/library"
+              >
+                <IconInfoCircle size={14} />
+              </a>
+            </label>
+            <Input
+              name="customTag"
+              label=""
+              placeholder="e.g. llama3.1:8b-instruct-q4_K_M"
+              value={customTag}
+              onChange={(e) => setCustomTag(e.target.value)}
+            />
+            <p className="text-xs text-text-muted mt-1">
+              Enter the model tag exactly as shown on{' '}
+              <a href="https://ollama.com/library" target="_blank" rel="noopener noreferrer" className="underline">
+                ollama.com/library
+              </a>
+            </p>
+          </div>
+          <Input
+            name="customDesc"
+            label="Description (optional)"
+            placeholder="Short description of the model"
+            value={customDesc}
+            onChange={(e) => setCustomDesc(e.target.value)}
+          />
+          <Input
+            name="customSize"
+            label="Size (optional)"
+            placeholder="e.g. 4.7 GB"
+            value={customSize}
+            onChange={(e) => setCustomSize(e.target.value)}
+          />
+          <div className="flex items-center gap-2">
+            <input
+              id="customThinking"
+              type="checkbox"
+              checked={customThinking}
+              onChange={(e) => setCustomThinking(e.target.checked)}
+              className="w-4 h-4"
+            />
+            <label htmlFor="customThinking" className="text-sm text-text-secondary">
+              Reasoning / thinking model
+            </label>
+          </div>
+        </div>
+      </StyledModal>,
+      'add-custom-model-modal'
+    )
+  }
 
   const { data: availableModelData, isFetching, refetch } = useQuery({
     queryKey: ['ollama', 'availableModels', query, limit],
@@ -311,6 +435,14 @@ export default function ModelsPage(props: {
             >
               Refresh Models
             </StyledButton>
+            <StyledButton
+              variant="primary"
+              icon="IconPlus"
+              onClick={openAddCustomModelModal}
+              className='mt-1'
+            >
+              Add Custom Model
+            </StyledButton>
           </div>
           <StyledTable<NomadOllamaModel>
             className="font-semibold mt-4"
@@ -320,9 +452,17 @@ export default function ModelsPage(props: {
                 accessor: 'name',
                 title: 'Name',
                 render(record) {
+                  const isCustom = record.estimated_pulls === 'Custom'
                   return (
                     <div className="flex flex-col">
-                      <p className="text-lg font-semibold">{record.name}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-lg font-semibold">{record.name}</p>
+                        {isCustom && (
+                          <span className="text-xs font-medium px-1.5 py-0.5 rounded bg-accent-primary/20 text-accent-primary">
+                            Custom
+                          </span>
+                        )}
+                      </div>
                       <p className="text-sm text-text-muted">{record.description}</p>
                     </div>
                   )
@@ -368,6 +508,7 @@ export default function ModelsPage(props: {
                           const isInstalled = props.models.installedModels.some(
                             (mod) => mod.name === tag.name
                           )
+                          const isCustomModel = record.estimated_pulls === 'Custom'
                           return (
                             <tr key={tagIndex} className="hover:bg-surface-secondary">
                               <td className="px-6 py-4 whitespace-nowrap">
@@ -387,19 +528,31 @@ export default function ModelsPage(props: {
                                 <span className="text-sm text-text-secondary">{tag.size || 'N/A'}</span>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
-                                <StyledButton
-                                  variant={isInstalled ? 'danger' : 'primary'}
-                                  onClick={() => {
-                                    if (!isInstalled) {
-                                      handleInstallModel(tag.name)
-                                    } else {
-                                      confirmDeleteModel(tag.name)
-                                    }
-                                  }}
-                                  icon={isInstalled ? 'IconTrash' : 'IconDownload'}
-                                >
-                                  {isInstalled ? 'Delete' : 'Install'}
-                                </StyledButton>
+                                <div className="flex gap-2">
+                                  <StyledButton
+                                    variant={isInstalled ? 'danger' : 'primary'}
+                                    onClick={() => {
+                                      if (!isInstalled) {
+                                        handleInstallModel(tag.name)
+                                      } else {
+                                        confirmDeleteModel(tag.name)
+                                      }
+                                    }}
+                                    icon={isInstalled ? 'IconTrash' : 'IconDownload'}
+                                  >
+                                    {isInstalled ? 'Delete' : 'Install'}
+                                  </StyledButton>
+                                  {isCustomModel && (
+                                    <StyledButton
+                                      variant="secondary"
+                                      icon="IconX"
+                                      onClick={() => deleteCustomModelMutation.mutate(record.id)}
+                                      loading={deleteCustomModelMutation.isPending}
+                                    >
+                                      Remove
+                                    </StyledButton>
+                                  )}
+                                </div>
                               </td>
                             </tr>
                           )

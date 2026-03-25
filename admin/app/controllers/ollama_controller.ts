@@ -2,7 +2,7 @@ import { ChatService } from '#services/chat_service'
 import { OllamaService } from '#services/ollama_service'
 import { RagService } from '#services/rag_service'
 import { modelNameSchema } from '#validators/download'
-import { chatSchema, getAvailableModelsSchema } from '#validators/ollama'
+import { chatSchema, getAvailableModelsSchema, customModelSchema } from '#validators/ollama'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import { DEFAULT_QUERY_REWRITE_MODEL, RAG_CONTEXT_LIMITS, SYSTEM_PROMPTS } from '../../constants/ollama.js'
@@ -191,6 +191,22 @@ export default class OllamaController {
 
   async installedModels({ }: HttpContext) {
     return await this.ollamaService.getModels()
+  }
+
+  async addCustomModel({ request }: HttpContext) {
+    const payload = await request.validateUsing(customModelSchema)
+    const model = payload.model
+    await this.ollamaService.addCustomModel(model)
+    return { success: true, message: 'Custom model added.' }
+  }
+
+  async deleteCustomModel({ request, response }: HttpContext) {
+    const modelId = request.param('id')
+    if (!modelId) {
+      return response.badRequest({ message: 'Model ID is required.' })
+    }
+    await this.ollamaService.deleteCustomModel(modelId)
+    return { success: true, message: 'Custom model deleted.' }
   }
 
   /**

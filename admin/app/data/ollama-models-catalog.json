@@ -1,0 +1,482 @@
+{
+  "models": [
+    {
+      "id": "0b566560-68a6-4964-b0d4-beb3ab1ad694",
+      "name": "deepseek-r1",
+      "description": "DeepSeek-R1 is a family of open reasoning models with performance approaching that of leading models, such as O3 and Gemini 2.5 Pro.",
+      "estimated_pulls": "80.8M",
+      "model_last_updated": "8 months ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "deepseek-r1:latest", "size": "5.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:70b", "size": "43GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:671b", "size": "404GB", "context": "160K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:671b-0528-q4_K_M", "size": "404GB", "context": "160K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:1.5b-qwen-distill-fp16", "size": "3.6GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:70b-llama-distill-q8_0", "size": "75GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:8b", "size": "5.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:32b-qwen-distill-fp16", "size": "66GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:32b-qwen-distill-q4_K_M", "size": "20GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:8b-llama-distill-q4_K_M", "size": "4.9GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:7b-qwen-distill-q4_K_M", "size": "4.7GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:1.5b", "size": "1.1GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:671b-q8_0", "size": "713GB", "context": "160K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:671b-0528-fp16", "size": "1.3TB", "context": "160K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:32b-qwen-distill-q8_0", "size": "35GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:14b-qwen-distill-fp16", "size": "30GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:8b-llama-distill-q8_0", "size": "8.5GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:671b-fp16", "size": "1.3TB", "context": "160K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:70b-llama-distill-fp16", "size": "141GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:671b-q4_K_M", "size": "404GB", "context": "160K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:7b-qwen-distill-fp16", "size": "15GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:32b", "size": "20GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:8b-llama-distill-fp16", "size": "16GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:8b-0528-qwen3-q4_K_M", "size": "5.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:14b-qwen-distill-q4_K_M", "size": "9.0GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:70b-llama-distill-q4_K_M", "size": "43GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:14b-qwen-distill-q8_0", "size": "16GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:671b-0528-q8_0", "size": "713GB", "context": "160K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:14b", "size": "9.0GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:1.5b-qwen-distill-q4_K_M", "size": "1.1GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:7b", "size": "4.7GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:1.5b-qwen-distill-q8_0", "size": "1.9GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:8b-0528-qwen3-fp16", "size": "16GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:7b-qwen-distill-q8_0", "size": "8.1GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "deepseek-r1:8b-0528-qwen3-q8_0", "size": "8.9GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true}
+      ]
+    },
+    {
+      "id": "0bc2d6fd-a244-4ebb-ac68-6bad9aad10ba",
+      "name": "phi3",
+      "description": "Phi-3 is a family of lightweight 3B (Mini) and 14B (Medium) state-of-the-art open models by Microsoft.",
+      "estimated_pulls": "16.6M",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "phi3:latest", "size": "2.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:mini", "size": "2.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:medium", "size": "7.9GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:3.8b", "size": "2.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:14b", "size": "7.9GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:mini-128k", "size": "2.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:medium-128k", "size": "7.9GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:mini-4k", "size": "2.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:medium-4k", "size": "7.9GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:instruct", "size": "2.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:14b-instruct", "size": "7.9GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:3.8b-instruct", "size": "2.2GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:3.8b-mini-4k-instruct-q4_K_M", "size": "2.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:3.8b-mini-128k-instruct-q4_K_M", "size": "2.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:14b-medium-4k-instruct-q4_K_M", "size": "8.6GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:14b-medium-128k-instruct-q4_K_M", "size": "8.6GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:3.8b-mini-4k-instruct-fp16", "size": "7.6GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:14b-medium-4k-instruct-fp16", "size": "28GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:14b-medium-128k-instruct-fp16", "size": "28GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "phi3:3.8b-mini-4k-instruct-q8_0", "size": "4.1GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "1064a65e-d149-432b-88de-96ded4345284",
+      "name": "all-minilm",
+      "description": "Embedding models on very large sentence level datasets.",
+      "estimated_pulls": "2.8M",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "all-minilm:latest", "size": "46MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:l6", "size": "46MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:v2", "size": "46MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:l6-v2", "size": "46MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:22m", "size": "46MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:22m-l6-v2-fp16", "size": "46MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:33m", "size": "67MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:l12", "size": "67MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:l12-v2", "size": "67MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "all-minilm:33m-l12-v2-fp16", "size": "67MB", "context": "512", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "0b593e77-452f-4b62-afb0-9ec7e5ac23f0",
+      "name": "falcon3",
+      "description": "A family of efficient AI models under 10B parameters performant in science, math, and coding through innovative training techniques.",
+      "estimated_pulls": "2.3M",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "falcon3:latest", "size": "4.6GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:7b", "size": "4.6GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:3b", "size": "2.0GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:10b", "size": "6.3GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:1b", "size": "1.8GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:7b-instruct-q4_K_M", "size": "4.6GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:3b-instruct-q4_K_M", "size": "2.0GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:10b-instruct-q4_K_M", "size": "6.3GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:1b-instruct-q4_K_M", "size": "1.1GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:7b-instruct-q8_0", "size": "7.9GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:3b-instruct-q8_0", "size": "3.4GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:10b-instruct-q8_0", "size": "11GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:1b-instruct-q8_0", "size": "1.8GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:7b-instruct-fp16", "size": "15GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:3b-instruct-fp16", "size": "6.5GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:10b-instruct-fp16", "size": "21GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "falcon3:1b-instruct-fp16", "size": "3.3GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "125d84e5-8c4d-4ea3-a38e-fe9ac8b11db1",
+      "name": "moondream",
+      "description": "moondream2 is a small vision language model designed to run efficiently on edge devices.",
+      "estimated_pulls": "827.1K",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "moondream:latest", "size": "1.7GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false},
+        {"name": "moondream:v2", "size": "1.7GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false},
+        {"name": "moondream:1.8b", "size": "1.7GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false},
+        {"name": "moondream:1.8b-v2-q4_K_M", "size": "1.8GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false},
+        {"name": "moondream:1.8b-v2-q4_0", "size": "1.7GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false},
+        {"name": "moondream:1.8b-v2-q5_K_M", "size": "2.0GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false},
+        {"name": "moondream:1.8b-v2-q8_0", "size": "2.4GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false},
+        {"name": "moondream:1.8b-v2-fp16", "size": "3.7GB", "context": "2K", "input": "Text, Image", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "0b89f4dd-11ca-4611-a8a4-3d10b1e3ba5b",
+      "name": "starcoder2",
+      "description": "StarCoder2 is the next generation of transparently trained open code LLMs that comes in three sizes: 3B, 7B and 15B parameters.",
+      "estimated_pulls": "2.4M",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "starcoder2:latest", "size": "1.7GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:3b", "size": "1.7GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:7b", "size": "4.0GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:15b", "size": "9.1GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:instruct", "size": "9.1GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:15b-instruct", "size": "9.1GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:3b-q4_K_M", "size": "1.8GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:7b-q4_K_M", "size": "4.4GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:15b-q4_K_M", "size": "9.9GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:15b-instruct-v0.1-q4_K_M", "size": "9.9GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:3b-q8_0", "size": "3.2GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:7b-q8_0", "size": "7.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:15b-q8_0", "size": "17GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "starcoder2:15b-fp16", "size": "32GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "1a817fa2-ce32-4d6a-bf1a-23255ae27616",
+      "name": "llama2-uncensored",
+      "description": "Uncensored Llama 2 model by George Sung and Jarrad Hope.",
+      "estimated_pulls": "2.1M",
+      "model_last_updated": "2 years ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "llama2-uncensored:latest", "size": "3.8GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:7b", "size": "3.8GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:70b", "size": "39GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:7b-chat", "size": "3.8GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:7b-chat-q4_K_M", "size": "4.1GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:7b-chat-q8_0", "size": "7.2GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:70b-chat", "size": "39GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:70b-chat-q4_K_M", "size": "41GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:7b-chat-fp16", "size": "13GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "llama2-uncensored:70b-chat-q8_0", "size": "73GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "0e8b6b5c-3a6f-41d8-8dee-a73af5aa2c39",
+      "name": "mistral-large",
+      "description": "Mistral Large 2 is Mistral's new flagship model that is significantly more capable in code generation, mathematics, and reasoning with 128k context window and support for dozens of languages.",
+      "estimated_pulls": "806.8K",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "mistral-large:latest", "size": "73GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "mistral-large:123b", "size": "73GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "mistral-large:123b-instruct-2411-q4_K_M", "size": "73GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "mistral-large:123b-instruct-2407-q4_K_M", "size": "73GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "mistral-large:123b-instruct-2411-q8_0", "size": "130GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "mistral-large:123b-instruct-2411-fp16", "size": "245GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "mistral-large:123b-instruct-2411-q5_K_M", "size": "86GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "mistral-large:123b-instruct-2411-q2_K", "size": "45GB", "context": "128K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "0cdbf001-0428-4e55-b361-677789c6f124",
+      "name": "wizardlm2",
+      "description": "State of the art large language model from Microsoft AI with improved performance on complex chat, multilingual, reasoning and agent use cases.",
+      "estimated_pulls": "851.5K",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "wizardlm2:latest", "size": "4.1GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:7b", "size": "4.1GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:8x22b", "size": "80GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:7b-q4_K_M", "size": "4.4GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:7b-q8_0", "size": "7.7GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:7b-fp16", "size": "14GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:8x22b-q4_0", "size": "80GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:8x22b-q8_0", "size": "149GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm2:8x22b-fp16", "size": "281GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "2134472d-72f5-430e-ab60-25f0c467ac88",
+      "name": "solar",
+      "description": "A compact, yet powerful 10.7B large language model designed for single-turn conversation.",
+      "estimated_pulls": "599.5K",
+      "model_last_updated": "2 years ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "solar:10.7b-instruct-v1-q6_K", "size": "8.8GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "solar:10.7b-text-v1-q4_K_M", "size": "6.5GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "solar:10.7b-text-v1-q5_1", "size": "8.1GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "solar:10.7b-instruct-v1-q5_K_S", "size": "7.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "1336f374-b5d1-4d86-b2a0-7e5927f7dd2e",
+      "name": "wizardlm",
+      "description": "General use model based on Llama 2.",
+      "estimated_pulls": "534.6K",
+      "model_last_updated": "2 years ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "wizardlm:latest", "size": "4.1GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:7b-q4_0", "size": "3.8GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:7b-q4_K_M", "size": "4.1GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:13b-llama2-q4_K_M", "size": "7.9GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:70b-llama2-q4_K_M", "size": "41GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:7b-fp16", "size": "13GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:13b-llama2-fp16", "size": "26GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:70b-llama2-q8_0", "size": "73GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "wizardlm:30b-fp16", "size": "65GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "18345292-b926-43ca-81ac-54058d5ceebf",
+      "name": "stable-code",
+      "description": "Stable Code 3B is a coding model with instruct and code completion variants on par with models such as Code Llama 7B that are 2.5x larger.",
+      "estimated_pulls": "665.2K",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "stable-code:latest", "size": "1.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b", "size": "1.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:code", "size": "1.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:instruct", "size": "1.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-code", "size": "1.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-instruct", "size": "1.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-code-q4_K_M", "size": "1.7GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-instruct-q4_K_M", "size": "1.7GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-code-q8_0", "size": "3.0GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-instruct-q8_0", "size": "3.0GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-code-fp16", "size": "5.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "stable-code:3b-instruct-fp16", "size": "5.6GB", "context": "16K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "19f46132-6a14-44f6-bdcc-93a9e2a1d8ba",
+      "name": "olmo-3.1",
+      "description": "Olmo is a series of Open language models designed to enable the science of language models. These models are pre-trained on the Dolma 3 dataset and post-trained on the Dolci datasets.",
+      "estimated_pulls": "173.3K",
+      "model_last_updated": "3 months ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "olmo-3.1:latest", "size": "19GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b", "size": "19GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-instruct", "size": "19GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-instruct-q4_K_M", "size": "19GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-instruct-q8_0", "size": "34GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-instruct-fp16", "size": "64GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-think", "size": "19GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-think-q4_K_M", "size": "19GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-think-q8_0", "size": "34GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "olmo-3.1:32b-think-fp16", "size": "64GB", "context": "64K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "1a7ece2a-e1dc-4404-8f5e-f439ab988e09",
+      "name": "opencoder",
+      "description": "OpenCoder is an open and reproducible code LLM family which includes 1.5B and 8B models, supporting chat in English and Chinese languages.",
+      "estimated_pulls": "496.6K",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "opencoder:latest", "size": "4.7GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:8b", "size": "4.7GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:1.5b", "size": "1.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:8b-instruct-q4_K_M", "size": "4.7GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:8b-instruct-q8_0", "size": "8.3GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:8b-instruct-fp16", "size": "16GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:1.5b-instruct-q4_K_M", "size": "1.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:1.5b-instruct-q8_0", "size": "2.0GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "opencoder:1.5b-instruct-fp16", "size": "3.8GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "1af673c8-cdb1-4c8b-a569-5d9c7428d55b",
+      "name": "notux",
+      "description": "A top-performing mixture of experts model, fine-tuned with high-quality data.",
+      "estimated_pulls": "338.1K",
+      "model_last_updated": "2 years ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "notux:latest", "size": "26GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "notux:8x7b", "size": "26GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "notux:8x7b-v1", "size": "26GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "notux:8x7b-v1-q4_K_M", "size": "26GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "notux:8x7b-v1-q4_0", "size": "26GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "notux:8x7b-v1-q8_0", "size": "50GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "notux:8x7b-v1-fp16", "size": "93GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "0d1ac3d4-705c-4eef-bedd-f27b0d7390d6",
+      "name": "codeup",
+      "description": "Great code generation model based on Llama2.",
+      "estimated_pulls": "375.1K",
+      "model_last_updated": "2 years ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "codeup:latest", "size": "7.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "codeup:13b", "size": "7.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "codeup:13b-llama2", "size": "7.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "codeup:13b-llama2-chat", "size": "7.4GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "codeup:13b-llama2-chat-q4_K_M", "size": "7.9GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "codeup:13b-llama2-chat-q8_0", "size": "14GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "codeup:13b-llama2-chat-fp16", "size": "26GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "018b80bf-3d00-46c9-ae79-6294eeb194e2",
+      "name": "kimi-k2",
+      "description": "A state-of-the-art mixture-of-experts (MoE) language model. Kimi K2-Instruct-0905 demonstrates significant improvements in performance on public benchmarks and real-world coding agent tasks.",
+      "estimated_pulls": "50.1K",
+      "model_last_updated": "5 months ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "kimi-k2:1t-cloud", "size": "-", "context": "256K", "input": "Text", "cloud": true, "thinking": false}
+      ]
+    },
+    {
+      "id": "068e764c-d93b-4ffe-a466-724afcde0295",
+      "name": "bge-large",
+      "description": "Embedding model from BAAI mapping texts to vectors.",
+      "estimated_pulls": "227.3K",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "bge-large:latest", "size": "671MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "bge-large:335m", "size": "671MB", "context": "512", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "bge-large:335m-en-v1.5-fp16", "size": "671MB", "context": "512", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "09880475-b09c-461f-b03b-1cd4063a4fed",
+      "name": "rnj-1",
+      "description": "Rnj-1 is a family of 8B parameter open-weight, dense models trained from scratch by Essential AI, optimized for code and STEM with capabilities on par with SOTA open-weight models.",
+      "estimated_pulls": "386.8K",
+      "model_last_updated": "3 months ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "rnj-1:latest", "size": "5.1GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "rnj-1:8b", "size": "5.1GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "rnj-1:8b-instruct-q4_K_M", "size": "5.1GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "rnj-1:8b-instruct-q8_0", "size": "8.8GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "rnj-1:8b-instruct-fp16", "size": "17GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "rnj-1:8b-cloud", "size": "-", "context": "32K", "input": "Text", "cloud": true, "thinking": false}
+      ]
+    },
+    {
+      "id": "0efdf63b-4ad8-4c57-b089-ef6681a031e5",
+      "name": "gpt-oss-safeguard",
+      "description": "gpt-oss-safeguard-20b and gpt-oss-safeguard-120b are safety reasoning models built-upon gpt-oss",
+      "estimated_pulls": "103K",
+      "model_last_updated": "4 months ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "gpt-oss-safeguard:latest", "size": "14GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "gpt-oss-safeguard:20b", "size": "14GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true},
+        {"name": "gpt-oss-safeguard:120b", "size": "65GB", "context": "128K", "input": "Text", "cloud": false, "thinking": true}
+      ]
+    },
+    {
+      "id": "02874e4b-22df-4a6e-9528-d4c44f7dea42",
+      "name": "qwen2.5-coder",
+      "description": "The latest series of Code-Specific Qwen models, with significant improvements in code generation, code reasoning, and code fixing.",
+      "estimated_pulls": "12.8M",
+      "model_last_updated": "10 months ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "qwen2.5-coder:latest", "size": "4.7GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:0.5b", "size": "398MB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:1.5b", "size": "986MB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:3b", "size": "1.9GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:7b", "size": "4.7GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:14b", "size": "9.0GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:32b", "size": "20GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:0.5b-instruct", "size": "398MB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:1.5b-instruct", "size": "986MB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:3b-instruct", "size": "1.9GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:7b-instruct", "size": "4.7GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:14b-instruct", "size": "9.0GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:32b-instruct", "size": "20GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:7b-instruct-q4_K_M", "size": "4.7GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:14b-instruct-q4_K_M", "size": "9.0GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:32b-instruct-q4_K_M", "size": "20GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:7b-instruct-q8_0", "size": "8.1GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:14b-instruct-q8_0", "size": "16GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:32b-instruct-q8_0", "size": "35GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "qwen2.5-coder:32b-instruct-fp16", "size": "66GB", "context": "32K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "1c56c9f6-fe76-4b2a-bab8-7b6c86749034",
+      "name": "granite-code",
+      "description": "A family of open foundation models by IBM for Code Intelligence",
+      "estimated_pulls": "946.4K",
+      "model_last_updated": "1 year ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "granite-code:latest", "size": "2.0GB", "context": "125K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:3b", "size": "2.0GB", "context": "125K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:8b", "size": "4.6GB", "context": "125K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:20b", "size": "12GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:34b", "size": "19GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:3b-instruct", "size": "2.0GB", "context": "125K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:8b-instruct", "size": "4.6GB", "context": "125K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:20b-instruct", "size": "12GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:34b-instruct", "size": "19GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:3b-base", "size": "2.0GB", "context": "2K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:8b-base", "size": "4.6GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:20b-base", "size": "12GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:34b-base", "size": "19GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:3b-instruct-128k-q4_K_M", "size": "2.1GB", "context": "125K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:8b-instruct-q4_K_M", "size": "4.9GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:20b-instruct-q4_K_M", "size": "13GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "granite-code:34b-instruct-q4_K_M", "size": "21GB", "context": "8K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    },
+    {
+      "id": "0f61cbc4-4fe8-4b33-b730-f432cbe8366c",
+      "name": "goliath",
+      "description": "A language model created by combining two fine-tuned Llama 2 70B models into one.",
+      "estimated_pulls": "304.5K",
+      "model_last_updated": "2 years ago",
+      "first_seen": "2026-01-28T23:37:31.000+00:00",
+      "tags": [
+        {"name": "goliath:latest", "size": "66GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-q4_0", "size": "66GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-q4_K_M", "size": "71GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-q4_K_S", "size": "66GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-q5_0", "size": "81GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-q5_K_M", "size": "83GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-q6_K", "size": "97GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-q8_0", "size": "125GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false},
+        {"name": "goliath:120b-fp16", "size": "236GB", "context": "4K", "input": "Text", "cloud": false, "thinking": false}
+      ]
+    }
+  ]
+}

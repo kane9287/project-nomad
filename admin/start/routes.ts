@@ -123,6 +123,8 @@ router
     router.post('/models', [OllamaController, 'dispatchModelDownload'])
     router.delete('/models', [OllamaController, 'deleteModel'])
     router.get('/installed-models', [OllamaController, 'installedModels'])
+    router.post('/custom-models', [OllamaController, 'addCustomModel'])
+    router.delete('/custom-models/:id', [OllamaController, 'deleteCustomModel'])
   })
   .prefix('/api/ollama')
 

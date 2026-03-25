@@ -9,6 +9,7 @@ import axios from 'axios'
 import { DownloadModelJob } from '#jobs/download_model_job'
 import { SERVICE_NAMES } from '../../constants/service_names.js'
 import transmit from '@adonisjs/transmit/services/main'
+import KVStore from '#models/kv_store'
 import Fuse, { IFuseOptions } from 'fuse.js'
 import { BROADCAST_CHANNELS } from '../../constants/broadcast.js'
 import env from '#start/env'
@@ -17,6 +18,7 @@ import { NOMAD_API_DEFAULT_BASE_URL } from '../../constants/misc.js'
 const NOMAD_MODELS_API_PATH = '/api/v1/ollama/models'
 const MODELS_CACHE_FILE = path.join(process.cwd(), 'storage', 'ollama-models-cache.json')
 const CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000 // 24 hours
+const LOCAL_CATALOG_FILE = path.join(process.cwd(), 'app', 'data', 'ollama-models-catalog.json')
 
 @inject()
 export class OllamaService {
@@ -191,8 +193,10 @@ export class OllamaService {
     }
   ): Promise<{ models: NomadOllamaModel[], hasMore: boolean } | null> {
     try {
-      const models = await this.retrieveAndRefreshModels(sort, force)
-      if (!models) {
+      const customModels = await this.getCustomModels()
+      const catalogModels = await this.retrieveAndRefreshModels(sort, force)
+
+      if (!catalogModels && customModels.length === 0) {
         // If we fail to get models from the API, return the fallback recommended models
         logger.warn(
           '[OllamaService] Returning fallback recommended models due to failure in fetching available models'
@@ -202,6 +206,12 @@ export class OllamaService {
           hasMore: false
         }
       }
+
+      // Custom models always appear first; deduplicate by id
+      const catalogWithoutCustom = (catalogModels || []).filter(
+        (m) => !customModels.some((c) => c.id === m.id)
+      )
+      const models = [...customModels, ...catalogWithoutCustom]
 
       if (!recommendedOnly) {
         const filteredModels = query ? this.fuseSearchModels(models, query) : models
@@ -258,36 +268,61 @@ export class OllamaService {
         logger.info('[OllamaService] Force refresh requested, bypassing cache')
       }
 
-      logger.info('[OllamaService] Fetching fresh available models from API')
-
       const baseUrl = env.get('NOMAD_API_URL') || NOMAD_API_DEFAULT_BASE_URL
-      const fullUrl = new URL(NOMAD_MODELS_API_PATH, baseUrl).toString()
 
-      const response = await axios.get(fullUrl)
-      if (!response.data || !Array.isArray(response.data.models)) {
-        logger.warn(
-          `[OllamaService] Invalid response format when fetching available models: ${JSON.stringify(response.data)}`
-        )
-        return null
+      if (baseUrl) {
+        logger.info('[OllamaService] Fetching fresh available models from API')
+        try {
+          const fullUrl = new URL(NOMAD_MODELS_API_PATH, baseUrl).toString()
+          const response = await axios.get(fullUrl)
+          if (response.data && Array.isArray(response.data.models)) {
+            const rawModels = response.data.models as NomadOllamaModel[]
+            const noCloud = rawModels
+              .map((model) => ({
+                ...model,
+                tags: model.tags.filter((tag) => !tag.cloud),
+              }))
+              .filter((model) => model.tags.length > 0)
+            await this.writeModelsToCache(noCloud)
+            return this.sortModels(noCloud, sort)
+          }
+          logger.warn('[OllamaService] Invalid API response format, falling through to local catalog')
+        } catch (apiError) {
+          logger.warn(`[OllamaService] API fetch failed, falling through to local catalog: ${apiError instanceof Error ? apiError.message : apiError}`)
+        }
+      } else {
+        logger.info('[OllamaService] NOMAD_API_URL not configured — using local catalog')
       }
 
-      const rawModels = response.data.models as NomadOllamaModel[]
+      const localCatalog = await this.readLocalCatalog()
+      if (localCatalog) {
+        return this.sortModels(localCatalog, sort)
+      }
 
-      // Filter out tags where cloud is truthy, then remove models with no remaining tags
-      const noCloud = rawModels
-        .map((model) => ({
-          ...model,
-          tags: model.tags.filter((tag) => !tag.cloud),
-        }))
-        .filter((model) => model.tags.length > 0)
-
-      await this.writeModelsToCache(noCloud)
-      return this.sortModels(noCloud, sort)
+      return null
     } catch (error) {
       logger.error(
-        `[OllamaService] Failed to retrieve models from Nomad API: ${error instanceof Error ? error.message : error
+        `[OllamaService] Failed to retrieve models: ${error instanceof Error ? error.message : error
         }`
       )
+      return null
+    }
+  }
+
+  private async readLocalCatalog(): Promise<NomadOllamaModel[] | null> {
+    try {
+      const data = await fs.readFile(LOCAL_CATALOG_FILE, 'utf-8')
+      const parsed = JSON.parse(data)
+      if (!Array.isArray(parsed.models)) {
+        logger.warn('[OllamaService] Local catalog has invalid format')
+        return null
+      }
+      logger.info('[OllamaService] Loaded models from local catalog')
+      return parsed.models as NomadOllamaModel[]
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+        logger.warn(`[OllamaService] Failed to read local catalog: ${error instanceof Error ? error.message : error}`)
+      }
       return null
     }
   }
@@ -332,6 +367,28 @@ export class OllamaService {
         `[OllamaService] Failed to write models cache: ${error instanceof Error ? error.message : error}`
       )
     }
+  }
+
+  async getCustomModels(): Promise<NomadOllamaModel[]> {
+    const raw = await KVStore.getValue('ollama.customModels')
+    if (!raw) return []
+    try {
+      return JSON.parse(raw) as NomadOllamaModel[]
+    } catch {
+      return []
+    }
+  }
+
+  async addCustomModel(model: NomadOllamaModel): Promise<void> {
+    const existing = await this.getCustomModels()
+    const filtered = existing.filter((m) => m.id !== model.id)
+    await KVStore.setValue('ollama.customModels', JSON.stringify([model, ...filtered]))
+  }
+
+  async deleteCustomModel(modelId: string): Promise<void> {
+    const existing = await this.getCustomModels()
+    const filtered = existing.filter((m) => m.id !== modelId)
+    await KVStore.setValue('ollama.customModels', JSON.stringify(filtered))
   }
 
   private sortModels(models: NomadOllamaModel[], sort?: 'pulls' | 'name'): NomadOllamaModel[] {
