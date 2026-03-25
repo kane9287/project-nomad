@@ -18,12 +18,7 @@ import { NOMAD_API_DEFAULT_BASE_URL } from '../../constants/misc.js'
 const NOMAD_MODELS_API_PATH = '/api/v1/ollama/models'
 const MODELS_CACHE_FILE = path.join(process.cwd(), 'storage', 'ollama-models-cache.json')
 const CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000 // 24 hours
-const LOCAL_CATALOG_FILE = path.join(
-  __dirname, 
-  '..', 
-  'data', 
-  'ollama-models-catalog.json'
-)
+const LOCAL_CATALOG_FILE = path.join(process.cwd(), 'app', 'data', 'ollama-models-catalog.json')
 
 @inject()
 export class OllamaService {

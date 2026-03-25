@@ -30,7 +30,7 @@ ARG VCS_REF
 
 # Labels
 LABEL org.opencontainers.image.title="Project N.O.M.A.D" \
-      org.opencontainers.image.description="The Project N.O.M.A.D Official Docker image" \
+      org.opencontainers.image.description="The Project N.O.M.A.D UnOfficial Docker image" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.revision="${VCS_REF}" \
@@ -45,7 +45,7 @@ COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
 # Copy root package.json for version info
 COPY package.json /app/version.json
-
+COPY admin/app/data/ollama-models-catalog.json ./app/data/
 # Copy docs and README for access within the container
 COPY admin/docs /app/docs
 COPY README.md /app/README.md
