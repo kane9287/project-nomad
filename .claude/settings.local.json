@@ -35,7 +35,16 @@
       "Bash(git:*)",
       "WebFetch(domain:cellsaviors.com)",
       "WebFetch(domain:api.projectnomad.us)",
-      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\ollama_service.ts' -TotalCount 30\")"
+      "Bash(powershell -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\services\\\\ollama_service.ts' -TotalCount 30\")",
+      "Bash(ls:*)",
+      "Bash(find '/c/Users/Christopher/Documents/Calude AI stuff/NOMAD_github/admin/inertia' -name ModalProvider* -o -name *ModalProv*)",
+      "Bash(powershell.exe -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\providers\\\\ModalProvider.tsx'\")",
+      "Bash(powershell.exe -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\app\\\\data\\\\ollama-models-catalog.json' | Select-Object -First 5\")",
+      "Bash(powershell.exe -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\settings\\\\models.tsx' | Select-Object -First 30\")",
+      "Bash(powershell.exe -Command \"Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\settings\\\\models.tsx' | Select-Object -Skip 80 -First 40\")",
+      "Bash(powershell.exe -Command \"\n\\\\$lines = Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\settings\\\\models.tsx'\n\\\\$lines[139..230]\n\")",
+      "Bash(powershell.exe -Command \"\n\\\\$lines = Get-Content 'C:\\\\Users\\\\Christopher\\\\Documents\\\\Calude AI stuff\\\\NOMAD_github\\\\admin\\\\inertia\\\\pages\\\\settings\\\\models.tsx'\n\\\\$lines[230..245]\n\")",
+      "Bash(node:*)"
     ]
   }
 }

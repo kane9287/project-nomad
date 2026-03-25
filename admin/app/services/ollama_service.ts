@@ -196,19 +196,17 @@ export class OllamaService {
       const customModels = await this.getCustomModels()
       const catalogModels = await this.retrieveAndRefreshModels(sort, force)
 
-      if (!catalogModels && customModels.length === 0) {
-        // If we fail to get models from the API, return the fallback recommended models
+      if (!catalogModels) {
+        // If we fail to get models from the catalog, log a warning
         logger.warn(
-          '[OllamaService] Returning fallback recommended models due to failure in fetching available models'
+          '[OllamaService] Could not load model catalog — falling back to built-in models'
         )
-        return {
-          models: FALLBACK_RECOMMENDED_OLLAMA_MODELS,
-          hasMore: false
-        }
       }
 
       // Custom models always appear first; deduplicate by id
-      const catalogWithoutCustom = (catalogModels || []).filter(
+      // If catalog is unavailable, use built-in fallback so custom models have something behind them
+      const effectiveCatalog = catalogModels ?? FALLBACK_RECOMMENDED_OLLAMA_MODELS
+      const catalogWithoutCustom = effectiveCatalog.filter(
         (m) => !customModels.some((c) => c.id === m.id)
       )
       const models = [...customModels, ...catalogWithoutCustom]

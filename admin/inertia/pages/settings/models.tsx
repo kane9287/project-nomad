@@ -104,6 +104,7 @@ export default function ModelsPage(props: {
   const [limit, setLimit] = useState(15)
 
   // Custom model form state
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [customTag, setCustomTag] = useState('')
   const [customDesc, setCustomDesc] = useState('')
   const [customSize, setCustomSize] = useState('')
@@ -145,7 +146,7 @@ export default function ModelsPage(props: {
       setCustomDesc('')
       setCustomSize('')
       setCustomThinking(false)
-      closeAllModals()
+      setIsAddModalOpen(false)
     },
     onError: () => {
       addNotification({ message: 'Failed to add custom model.', type: 'error' })
@@ -164,73 +165,7 @@ export default function ModelsPage(props: {
   })
 
   function openAddCustomModelModal() {
-    openModal(
-      <StyledModal
-        title="Add Custom Model"
-        onConfirm={() => addCustomModelMutation.mutate()}
-        onCancel={closeAllModals}
-        open={true}
-        confirmText="Add Model"
-        cancelText="Cancel"
-      >
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              Ollama tag <span className="text-status-error">*</span>
-              <a
-                href="https://ollama.com/library"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center ml-1 text-text-muted hover:text-text-primary"
-                title="Find tags at ollama.com/library"
-              >
-                <IconInfoCircle size={14} />
-              </a>
-            </label>
-            <Input
-              name="customTag"
-              label=""
-              placeholder="e.g. llama3.1:8b-instruct-q4_K_M"
-              value={customTag}
-              onChange={(e) => setCustomTag(e.target.value)}
-            />
-            <p className="text-xs text-text-muted mt-1">
-              Enter the model tag exactly as shown on{' '}
-              <a href="https://ollama.com/library" target="_blank" rel="noopener noreferrer" className="underline">
-                ollama.com/library
-              </a>
-            </p>
-          </div>
-          <Input
-            name="customDesc"
-            label="Description (optional)"
-            placeholder="Short description of the model"
-            value={customDesc}
-            onChange={(e) => setCustomDesc(e.target.value)}
-          />
-          <Input
-            name="customSize"
-            label="Size (optional)"
-            placeholder="e.g. 4.7 GB"
-            value={customSize}
-            onChange={(e) => setCustomSize(e.target.value)}
-          />
-          <div className="flex items-center gap-2">
-            <input
-              id="customThinking"
-              type="checkbox"
-              checked={customThinking}
-              onChange={(e) => setCustomThinking(e.target.checked)}
-              className="w-4 h-4"
-            />
-            <label htmlFor="customThinking" className="text-sm text-text-secondary">
-              Reasoning / thinking model
-            </label>
-          </div>
-        </div>
-      </StyledModal>,
-      'add-custom-model-modal'
-    )
+    setIsAddModalOpen(true)
   }
 
   const { data: availableModelData, isFetching, refetch } = useQuery({
@@ -578,6 +513,79 @@ export default function ModelsPage(props: {
           </div>
         </main>
       </div>
+
+      {/* Add Custom Model modal — inline so form inputs re-render on state change */}
+      <StyledModal
+        title="Add Custom Model"
+        onConfirm={() => addCustomModelMutation.mutate()}
+        onCancel={() => {
+          setIsAddModalOpen(false)
+          setCustomTag('')
+          setCustomDesc('')
+          setCustomSize('')
+          setCustomThinking(false)
+        }}
+        open={isAddModalOpen}
+        confirmText="Add Model"
+        cancelText="Cancel"
+        confirmLoading={addCustomModelMutation.isPending}
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Ollama tag <span className="text-status-error">*</span>
+              <a
+                href="https://ollama.com/library"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center ml-1 text-text-muted hover:text-text-primary"
+                title="Find tags at ollama.com/library"
+              >
+                <IconInfoCircle size={14} />
+              </a>
+            </label>
+            <Input
+              name="customTag"
+              label=""
+              placeholder="e.g. llama3.1:8b-instruct-q4_K_M"
+              value={customTag}
+              onChange={(e) => setCustomTag(e.target.value)}
+            />
+            <p className="text-xs text-text-muted mt-1">
+              Enter the model tag exactly as shown on{' '}
+              <a href="https://ollama.com/library" target="_blank" rel="noopener noreferrer" className="underline">
+                ollama.com/library
+              </a>
+            </p>
+          </div>
+          <Input
+            name="customDesc"
+            label="Description (optional)"
+            placeholder="Short description of the model"
+            value={customDesc}
+            onChange={(e) => setCustomDesc(e.target.value)}
+          />
+          <Input
+            name="customSize"
+            label="Size (optional)"
+            placeholder="e.g. 4.7 GB"
+            value={customSize}
+            onChange={(e) => setCustomSize(e.target.value)}
+          />
+          <div className="flex items-center gap-2">
+            <input
+              id="customThinking"
+              type="checkbox"
+              checked={customThinking}
+              onChange={(e) => setCustomThinking(e.target.checked)}
+              className="w-4 h-4"
+            />
+            <label htmlFor="customThinking" className="text-sm text-text-secondary">
+              Reasoning / thinking model
+            </label>
+          </div>
+        </div>
+      </StyledModal>
     </SettingsLayout>
   )
 }
